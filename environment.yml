@@ -1,0 +1,9 @@
+name: aa
+dependencies:
+- python=3.7
+- pip
+- pandas
+- plotly
+- matplotlib
+- xlrd=1.2.0
+- jupyterlab
