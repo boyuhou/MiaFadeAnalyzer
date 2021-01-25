@@ -22,7 +22,7 @@ class Mia:
         return self._df.loc[start_date:].sort_index()
 
     def normalize(self):
-        for tf in ["Bg", "Ft"]:
+        for tf in ["Bg", "Ft", "Htf2"]:
             for column in [f"{tf}Green", f"{tf}GreenPrior", f"{tf}Yellow"]:
                 self._df[f"r{column}"] = self._df[column] / self._df[f"{tf}Atr"]
 
@@ -96,6 +96,27 @@ class Mia:
             "FtP3MFE",
             "FtP4MFE",
             "FtP5MFE",
+            "Htf2BarNumber",
+            "Htf2Green",
+            "Htf2GreenPrior",
+            "Htf2Yellow",
+            "Htf2ValueAreaHigh",
+            "Htf2ValueAreaLow",
+            "Htf2P1Close",
+            "Htf2P2Close",
+            "Htf2P3Close",
+            "Htf2P4Close",
+            "Htf2P5Close",
+            "Htf2P1MAE",
+            "Htf2P2MAE",
+            "Htf2P3MAE",
+            "Htf2P4MAE",
+            "Htf2P5MAE",
+            "Htf2P1MFE",
+            "Htf2P2MFE",
+            "Htf2P3MFE",
+            "Htf2P4MFE",
+            "Htf2P5MFE",
             "BgSignalOpen",
             "BgSignalHigh",
             "BgSignalLow",
@@ -109,5 +130,5 @@ class Mia:
         columns = [column for column in self._df.columns if column not in de_columns]
         df = self._df.copy(deep=True)
         if drop_duplicates:
-            df = df.drop_duplicates(subset=["Ticker", "BgBarNumber"])
+            df = df.drop_duplicates(subset=["Ticker", "Direction", "BgBarNumber"])
         return df.loc[:, columns]
