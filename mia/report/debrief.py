@@ -220,6 +220,11 @@ def get_rs_value(dict_dfs: dict, ticker: str, process_date: str) -> pd.DataFrame
 
     folder_name = ticker_map[ticker]
 
+    try:
+        df_rs = dict_dfs[REPORT_WAM_RS][folder_name].xs(process_date).iloc[:,0].to_frame(REPORT_WAM_RS)
+    except KeyError:
+        process_date = (pd.to_datetime(process_date) + pd.tseries.offsets.BDay(1) - pd.tseries.offsets.BDay(1)).strftime("%Y-%m-%d")
+
     df_rs = dict_dfs[REPORT_WAM_RS][folder_name].xs(process_date).iloc[:,0].to_frame(REPORT_WAM_RS)
     df_rs_change = dict_dfs[REPORT_WAM_RSCHANGE][folder_name].xs(process_date).iloc[:,0].to_frame(REPORT_WAM_RSCHANGE)
     df_rs_max20 = dict_dfs[REPORT_WAM_MAX20][folder_name].xs(process_date).iloc[:,0].to_frame(REPORT_WAM_MAX20)
